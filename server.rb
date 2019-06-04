@@ -4,15 +4,13 @@ require "json"
 require_relative "./lib/order.rb"
 
 namespace '/api/v1' do
-  before do
-    content_type 'application/json'
-  end
+  # before do
+  #   content_type 'application/json'
+  # end
 
   post '/features' do
-    file = JSON.parse(request.body.read)
-    order = Order.new(file["order"]["items"])
-    {"Total price"=>order.total_price()}.to_json()
+    order = Order.new(JSON.parse(request.body.read)["order"]["items"])
+    {"Total price"=>order.total_price(), "Total_VAT"=>order.total_VAT()}.to_json()
   end
-
 
 end
