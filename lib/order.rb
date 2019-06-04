@@ -1,28 +1,74 @@
 require "json"
 class Order
-  Products = JSON.parse(File.read("new.json"))
-  def initialize(hash)
-    @hash = hash
+  # Products = JSON.parse(File.read("new.json"))
+  Products = JSON.parse('{
+  	"prices": [
+  		{
+  			"product_id": 1,
+  			"price": 599,
+  			"vat_band": "standard"
+  		},
+  		{
+  			"product_id": 2,
+  			"price": 250,
+  			"vat_band": "zero"
+  		},
+  		{
+  			"product_id": 3,
+  			"price": 250,
+  			"vat_band": "zero"
+  		},
+  		{
+  			"product_id": 4,
+  			"price": 1000,
+  			"vat_band": "zero"
+  		},
+  		{
+  			"product_id": 5,
+  			"price": 1250,
+  			"vat_band": "standard"
+  		}
+  	],
+  	"vat_bands": {
+  		"standard": 0.2,
+  		"zero": 0
+  	}
+  }
+')
+  def initialize(list_of_products)
+    @list_of_products = list_of_products
+    @id_price_VAT = []
   end
 
   def total_price(price = 0)
-    @hash.each do |product|
+    @list_of_products.each do |product|
       price += product["quantity"]*find_price_by_product_id(product["product_id"])
     end
     price
   end
 
   def total_VAT(total_vat = 0)
-    @hash.each do |product|
+    @list_of_products.each do |product|
       total_vat += product["quantity"]*find_price_by_product_id(product["product_id"])*find_VAT_amount_by_product_id(product["product_id"])
     end
     total_vat
   end
 
+  def id_price_VAT()
+    @list_of_products.each do |order|
+      @id_price_VAT << {"product_id" => order["product_id"],
+        "value" => find_price_by_product_id(order["product_id"])*order["quantity"],
+        "VAT" => find_VAT_amount_by_product_id(order["product_id"])*find_price_by_product_id(order["product_id"])*order["quantity"]
+      }
+    end
+    @id_price_VAT
+  end
 
-  def find_price_by_product_id(id)
+  private
+
+  def find_price_by_product_id(product_id)
     Products["prices"].each do |product|
-      return product["price"] if product["product_id"]== id
+      return product["price"] if product["product_id"]== product_id
     end
   end
 
