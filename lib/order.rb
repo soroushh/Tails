@@ -10,21 +10,21 @@ class Order
     @list_of_products.each do |product|
       price += product["quantity"]*find_price_by_product_id(product["product_id"])
     end
-    price
+    price.round()
   end
 
   def total_VAT(total_vat = 0)
     @list_of_products.each do |product|
       total_vat += product["quantity"]*find_price_by_product_id(product["product_id"])*find_VAT_amount_by_product_id(product["product_id"])
     end
-    total_vat
+    total_vat.round()
   end
 
   def id_price_VAT(exchange_rate = 1)
     @list_of_products.each do |product|
       @id_price_VAT << {"product_id" => product["product_id"],
-        "value" => find_price_by_product_id(product["product_id"])*product["quantity"]*exchange_rate,
-        "VAT" => find_VAT_amount_by_product_id(product["product_id"])*find_price_by_product_id(product["product_id"])*product["quantity"]*exchange_rate
+        "value" => find_price_by_product_id(product["product_id"])*product["quantity"]*exchange_rate.round(),
+        "VAT" => find_VAT_amount_by_product_id(product["product_id"])*find_price_by_product_id(product["product_id"])*product["quantity"]*exchange_rate.round()
       }
     end
     @id_price_VAT
