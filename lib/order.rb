@@ -6,29 +6,30 @@ class Order
     @id_price_VAT = []
   end
 
-  def total_price(price = 0)
+  def total_price(price = 0,ex_rate = 1)
     @list_of_products.each do |product|
-      price += product["quantity"]*find_price_by_product_id(product["product_id"])
+      price += product["quantity"]*find_price_by_product_id(product["product_id"])*
+      ex_rate
     end
     price.round()
   end
 
-  def total_VAT(total_vat = 0)
+  def total_VAT(total_vat = 0, ex_rate = 1)
     @list_of_products.each do |product|
       total_vat += product["quantity"]*find_price_by_product_id(product["product_id"])*
-      find_VAT_amount_by_product_id(product["product_id"])
+      find_VAT_amount_by_product_id(product["product_id"])*ex_rate
     end
     total_vat.round()
   end
 
-  def id_price_VAT(exchange_rate = 1)
+  def id_price_VAT(ex_rate = 1)
     @list_of_products.each do |product|
       @id_price_VAT << {"product_id" => product["product_id"],
         "value" => (find_price_by_product_id(product["product_id"])*
-        product["quantity"]*exchange_rate).round(),
+        product["quantity"]*ex_rate).round(),
         "VAT" => (find_VAT_amount_by_product_id(product["product_id"])*
         find_price_by_product_id(product["product_id"])*product["quantity"]*
-        exchange_rate).round()
+        ex_rate).round()
       }
     end
     @id_price_VAT
