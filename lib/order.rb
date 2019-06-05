@@ -1,44 +1,15 @@
 require "json"
 class Order
-  # Products = JSON.parse(File.read("new.json"))
-  Products = JSON.parse('{
-  	"prices": [
-  		{
-  			"product_id": 1,
-  			"price": 599,
-  			"vat_band": "standard"
-  		},
-  		{
-  			"product_id": 2,
-  			"price": 250,
-  			"vat_band": "zero"
-  		},
-  		{
-  			"product_id": 3,
-  			"price": 250,
-  			"vat_band": "zero"
-  		},
-  		{
-  			"product_id": 4,
-  			"price": 1000,
-  			"vat_band": "zero"
-  		},
-  		{
-  			"product_id": 5,
-  			"price": 1250,
-  			"vat_band": "standard"
-  		}
-  	],
-  	"vat_bands": {
-  		"standard": 0.2,
-  		"zero": 0
-  	}
-  }
-')
+  Products = JSON.parse(File.read("new.json"))
   def initialize(list_of_products)
     @list_of_products = list_of_products
     @id_price_VAT = []
   end
+  # attr_reader :money
+  # def initialize(req)
+  #   @list_of_products = req["items"]
+  #   @money = req["C"]
+  # end
 
   def total_price(price = 0)
     @list_of_products.each do |product|
