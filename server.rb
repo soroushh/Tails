@@ -18,6 +18,7 @@ namespace '/api/v2' do
     request.body.rewind
     @request_payload = JSON.parse request.body.read
   end
+  
   post '/orders' do
     order = Order.new(@request_payload["order"]["items"])
     exchange_rate = Exchange_rate.new(@request_payload["currency"])
