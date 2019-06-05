@@ -24,11 +24,11 @@ class Order
   def id_price_VAT(exchange_rate = 1)
     @list_of_products.each do |product|
       @id_price_VAT << {"product_id" => product["product_id"],
-        "value" => find_price_by_product_id(product["product_id"])*
-        product["quantity"]*exchange_rate.round(),
-        "VAT" => find_VAT_amount_by_product_id(product["product_id"])*
+        "value" => (find_price_by_product_id(product["product_id"])*
+        product["quantity"]*exchange_rate).round(),
+        "VAT" => (find_VAT_amount_by_product_id(product["product_id"])*
         find_price_by_product_id(product["product_id"])*product["quantity"]*
-        exchange_rate.round()
+        exchange_rate).round()
       }
     end
     @id_price_VAT
