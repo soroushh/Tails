@@ -1,6 +1,6 @@
 require "json"
 class Order
-  Products = JSON.parse(File.read("new.json"))
+  Products = JSON.parse(File.read("pricing.json"))
   def initialize(list_of_products)
     @list_of_products = list_of_products
     @id_price_VAT = []
