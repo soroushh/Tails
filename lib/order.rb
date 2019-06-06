@@ -11,7 +11,14 @@ class Order
       price += product["quantity"]*find_price_by_product_id(product["product_id"])*
       ex_rate
     end
-    price
+    price.round(2)
+  end
+
+  def penny_total_price(price = 0)
+    @list_of_products.each do |product|
+      price += product["quantity"]*find_price_by_product_id(product["product_id"])
+    end
+    price.round()
   end
 
   def total_VAT(total_vat = 0, ex_rate = 1)
@@ -19,21 +26,50 @@ class Order
       total_vat += product["quantity"]*find_price_by_product_id(product["product_id"])*
       find_VAT_amount_by_product_id(product["product_id"])*ex_rate
     end
-    total_vat
+    total_vat.round(2)
+  end
+
+  def penny_total_VAT(total_vat = 0)
+    @list_of_products.each do |product|
+      total_vat += product["quantity"]*find_price_by_product_id(product["product_id"])*
+      find_VAT_amount_by_product_id(product["product_id"])
+    end
+    total_vat.round()
   end
 
   def id_price_VAT(ex_rate = 1)
     @list_of_products.each do |product|
-      @id_price_VAT << {"product_id" => product["product_id"],
+      @id_price_VAT << {
+
+        "product_id" => product["product_id"],
+
         "value" => (find_price_by_product_id(product["product_id"])*
-        product["quantity"]*ex_rate),
+        product["quantity"]*ex_rate).round(2),
+
         "VAT" => (find_VAT_amount_by_product_id(product["product_id"])*
         find_price_by_product_id(product["product_id"])*product["quantity"]*
-        ex_rate)
+        ex_rate).round(2)
       }
     end
     @id_price_VAT
   end
+
+  def penny_id_price_VAT()
+    @list_of_products.each do |product|
+      @id_price_VAT << {
+
+        "product_id" => product["product_id"],
+
+        "value" => (find_price_by_product_id(product["product_id"])*
+        product["quantity"]).round(),
+
+        "VAT" => (find_VAT_amount_by_product_id(product["product_id"])*
+        find_price_by_product_id(product["product_id"])*product["quantity"]).round()
+      }
+    end
+    @id_price_VAT
+  end
+
 
   private
 
