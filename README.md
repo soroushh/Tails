@@ -1,3 +1,15 @@
+# Have access to different files inside the repository:
+
+1. The ruby files related to the models are in "lib" folder.
+
+2. The test files are in the "spec" folder.
+
+3. The required file for running the server is "server.rb" file.
+
+4. I have used Sinatra framework for building the API.
+
+5. I have used Rspec as the testing framework.
+
 # How to install and start the server
 
 1. At first you can clone or fork the repository from [here](https://github.com/soroushh/Tails)!
