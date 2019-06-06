@@ -80,9 +80,9 @@ If I had more time, I would also work on the error handling. In fact, I would wo
 ## What I am proud of
 I haven't  built any API before this test. I have used several APIs but it was my first time that I build one myself that receives a Post request with json body and responses in json format. This shows that I can learn new concepts and  apply them. At first, I tried to search about building APIs in Sinatra, then I built it step by step and now, it is working.
 
-## The Thoughest bits
+## The Toughest bits
 
-In my v2 API, I used two classes. One of them was responsible for checking the order and calculating the price, VAT and separating the order for different items. The other class is responsible for making a connection to another currency conversion API to receive the exchange_rate, therefore in I had to get data from request body two times. When I tried to get data from request body two times in my server file, the server did not work.  After being stuck about two hours and searching a lot, I understood I could use the following piece of code to be able to have access to request body two times.
+In both of my APIs, I use four models, so I need to have access to the request body four times. At first, it was impossible for me to do it and I got stuck in it. After searching, I understood I can use the following piece of code to have access to the request body in my server file. 
 
  ```before do``` </br>
     &nbsp; &nbsp; ```request.body.rewind``` </br>
@@ -95,7 +95,7 @@ Then, I used "@request_payload" variable in my server file to have access to the
 
 ## Why only one endpoint ???
 
-As you see in my server.rb file, I have only used one endpoint for both v1 and v2 APIs. The reason is that there are only 5 products. In adittion, I am not designing an API for a server which is used by a big company that has many clients and the server is called many times. I am just designing it for a test.
+As you see in my server.rb file, I have only used one endpoint for both v1 and v2 APIs. The reason is that there are only 5 products. In addition, I am not designing an API for a server which is used by a big company that has many clients and the server is called many times. I am just designing it for a test.
  If the server is called many times by clients, it would be a better idea to separate endpoints, because a lot of customers only need certain amount of information, so it is not good to get extra information by the endpoint. In addition, it increases the cost of data storage and management in big scales.
 
  ## How to make the test more clear and better
