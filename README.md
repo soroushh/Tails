@@ -51,7 +51,7 @@ As you see in the above picture, in the response, we have total price which is t
 
 This version of API is an extended version of v1 API. in this version, you will add "currency" to your request and the prices and the VAT in the respond will be in the currency that you have entered in the request with the accuracy of 0.01.
 
- The proper Post request format is shown in the following picture. As you see, you should add the "currency" to the body of your post request and the value for it will be the code of the currency you want to use. In order to get a list of the code of different currencies, you can have a look at the [https://free.currencyconverterapi.com](https://free.currencyconverterapi.com). For example, the code of dollar is "USD".
+ The proper Post request format is shown in the following picture. As you see, you should add the "currency" to the body of your post request and the value for it will be the code of the currency you want to use. In order to get a list of the code of different currencies, you can have a look at the [https://free.currencyconverterapi.com](https://www.currencyconverterapi.com/docs). For example, the code of dollar is "USD".
 
 In order to use v2 version of API, after starting the server, you can send a Post request to the following url.
 ``` http://localhost:4567/api/v2/orders ```
