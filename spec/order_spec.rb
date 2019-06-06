@@ -1,6 +1,7 @@
 require "order"
 
 describe Order do
+
   before(:each) do
     @order = order = Order.new([
       {"product_id"=>1, "quantity" => 2},
@@ -34,6 +35,7 @@ describe Order do
     it "We can calculate the total VAT of an order in pennies with accuracy of 1" do
       expect(@order.penny_total_VAT()).to eq((2*599*0.2 + 3*250*0).round())
     end
+    
   end
 
   context "#id_price_VAT" do
