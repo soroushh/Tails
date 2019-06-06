@@ -37,21 +37,20 @@ describe Order do
   end
 
   context "#id_price_VAT" do
-    it "We can have all the products of an order separatly by their price and VAT" do
-      order = Order.new([
-        {"product_id" =>1 , "quantity" => 3},
-        {"product_id" =>2 , "quantity" => 4}
-        ])
-
-      expect(order.id_price_VAT()).to eq (
+    it "We can have all the products of an order separatly by their price and VAT\
+    with accuracy of 0.01 and deifferent exchange rate." do
+      ex_rate = 1.5
+      expect(@order.id_price_VAT()).to eq (
         [
           {
-            "product_id" => 1 , "value" => (3*599).round(2) ,
-            "VAT" => (3*599*0.2).round(2)
+            "product_id" => 1 ,
+            "value" => (2*599).round(2) ,
+            "VAT" => (2*599*0.2).round(2)
           },
           {
-            "product_id" => 2 , "value" => (4*250).round(2) ,
-            "VAT" => (4*250*0).round(2)
+            "product_id" => 2 ,
+            "value" => (3*250).round(2) ,
+            "VAT" => (3*250*0).round(2)
           }
         ]
       )
