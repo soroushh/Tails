@@ -105,7 +105,7 @@ class Order
     end
   end
 
-  #  This is a private method that shows the VAT ratio based on its status. 
+  #  This is a private method that shows the VAT ratio based on its status.
   def find_VAT_amount_by_product_id(product_id)
     return 0 if find_VAT_status_by_product_id(product_id) == "zero"
     return 0.2 if find_VAT_status_by_product_id(product_id) == "standard"
