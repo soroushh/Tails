@@ -40,32 +40,40 @@ describe Order do
     it "We can have all the products of an order separatly by their price and VAT\
     with accuracy of 0.01 and deifferent exchange rate." do
       ex_rate = 1.5
-      expect(@order.id_price_VAT()).to eq (
+      expect(@order.id_price_VAT(ex_rate)).to eq (
         [
           {
             "product_id" => 1 ,
-            "value" => (2*599).round(2) ,
-            "VAT" => (2*599*0.2).round(2)
+            "value" => (2*599)*ex_rate.round(2) ,
+            "VAT" => (2*599*0.2*ex_rate).round(2)
           },
           {
             "product_id" => 2 ,
-            "value" => (3*250).round(2) ,
-            "VAT" => (3*250*0).round(2)
+            "value" => (3*250*ex_rate).round(2) ,
+            "VAT" => (3*250*0*ex_rate).round(2)
+          }
+        ]
+      )
+    end
+
+    it "We can have all the products of an order separatly by their price and VAT\
+    in pennies with accuracy of 1." do
+      expect(@order.penny_id_price_VAT()).to eq (
+        [
+          {
+            "product_id" => 1 ,
+            "value" => (2*599).round() ,
+            "VAT" => (2*599*0.2).round()
+          },
+          {
+            "product_id" => 2 ,
+            "value" => (3*250).round() ,
+            "VAT" => (3*250*0).round()
           }
         ]
       )
     end
   end
 
-  context "If we have an eachange rate different from 1, we can see the price" do
-    it "We are able to use eachange rate to calculate the price of order" do
-      order = Order.new([
-        {"product_id" =>1 , "quantity" => 4},
-        {"product_id" =>2 , "quantity" => 3}
-        ])
-
-      expect(order.total_price(0,3)).to eq (3*(4*599 + 3*250))
-    end
-  end
 
 end
