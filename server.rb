@@ -16,7 +16,8 @@ namespace '/api/v1' do
     order = Order.new(@request_payload["order"]["items"])
     vat = VAT.new(@request_payload["order"]["items"])
     all_items = Separated_order_items.new(@request_payload["order"]["items"])
-    {"Total price"=>order.penny_total_price(),
+    {
+       "Total price"=>order.penny_total_price(),
        "Total_VAT"=>vat.penny_total_VAT(),
        "All" => all_items.penny_show_all()
      }.to_json()
@@ -38,6 +39,6 @@ namespace '/api/v2' do
     "Total price" => order.total_price(0, ex_rate.find_rate()),
     "Total_VAT"=> vat.total_VAT(0, ex_rate.find_rate()),
     "All"=> all_items.show_all(ex_rate.find_rate())
-  }.to_json()
+    }.to_json()
   end
 end
