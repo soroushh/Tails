@@ -24,44 +24,4 @@ describe Order do
 
   end
 
-  context "#id_price_VAT" do
-    it "We can have all the products of an order separatly by their price and VAT\
-    with accuracy of 0.01 and deifferent exchange rate." do
-      ex_rate = 1.5
-      expect(@order.id_price_VAT(ex_rate)).to eq (
-        [
-          {
-            "product_id" => 1 ,
-            "value" => (2*599)*ex_rate.round(2) ,
-            "VAT" => (2*599*0.2*ex_rate).round(2)
-          },
-          {
-            "product_id" => 2 ,
-            "value" => (3*250*ex_rate).round(2) ,
-            "VAT" => (3*250*0*ex_rate).round(2)
-          }
-        ]
-      )
-    end
-
-    it "We can have all the products of an order separatly by their price and VAT\
-    in pennies with accuracy of 1." do
-      expect(@order.penny_id_price_VAT()).to eq (
-        [
-          {
-            "product_id" => 1 ,
-            "value" => (2*599).round() ,
-            "VAT" => (2*599*0.2).round()
-          },
-          {
-            "product_id" => 2 ,
-            "value" => (3*250).round() ,
-            "VAT" => (3*250*0).round()
-          }
-        ]
-      )
-    end
-  end
-
-
 end
