@@ -9,26 +9,25 @@ describe Order do
   end
 
   context "#total_price" do
+
     it "We can calculate the total price of an order\
-    with accuracy of 0.01 and an exchange_rate." do
-      expect(@order.total_price(0,1.5)).to eq ((2*599 + 3*250)*1.5).round(2)
+    with accuracy of 0.01 and an exchange_rate different form 1." do
+      ex_rate = 1.5
+      expect(@order.total_price(0,ex_rate)).to eq ((2*599 + 3*250)*1.5).round(2)
     end
 
     it "We can calculate the total price of an order in pennies with the\
     accuracy of 1." do
     expect(@order.penny_total_price).to eq((2*599 + 3*250).round())
-
     end
+
   end
 
   context "#total_VAT" do
-    it "We can calcualte the total VAT of an order" do
-      order = Order.new([
-        {"product_id" =>1 , "quantity" => 3},
-        {"product_id" =>2 , "quantity" => 4}
-        ])
-
-      expect(order.total_VAT()).to eq (599*3*0.2 + 4*250*0).round(2)
+    it "We can calcualte the total VAT of an order\
+    with accuracy of 0.01 and an exchange rate different from 1." do
+      ex_rate = 2.5
+      expect(@order.total_VAT(0,ex_rate)).to eq (2*599*0.2 + 3*250*0)*2.5.round(2)
     end
   end
 
