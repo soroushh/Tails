@@ -1,4 +1,4 @@
-# Have access to different files inside the repository:
+#  Accessing different files inside the repository:
 
 1. The ruby files related to the models are in "lib" folder.
 
@@ -14,23 +14,23 @@
 
 1. At first you can clone or fork the repository from [here](https://github.com/soroushh/Tails)!
 
-2.  After making sure you have Ruby installed on your machine, you should install "bundler" gem in your machine by the following command:
+2.  Make sure you have Ruby installed on your machine, then you need to install "bundler" gem on your machine using the following command:
 
 ``` gem install bundler ```
 
-3 . After installing the "bundler", you should use it to install the dependencies (gems) by running the following command:
+3. Once you installed "bundler", use it to install the dependencies (gems) by running the following command:
 
 ``` bundle install ```
 
-4. After installing all dependencies, you can run the server by running the following command on your command line:
+4. After installing all dependencies, you can run the server by running the following command on your terminal:
 
 ``` ruby server.rb ```
 
-After running the server.rb file, you can have access to your server in the following url in your browser.
+Now you have access to your server in the following url using your browser.
 
 http://localhost:4567
 
-After starting the server, you can make Post requests to the server and receive the response in "json" format.
+After starting the server, you can make POST requests to the server and receive the response in "json" format.
 
 ## Proper requests to the API and the received response
 
@@ -38,71 +38,74 @@ As you see in the server.rb file, there are two versions of "v1" and "v2" API.
 
 ### v1 API
 
-This version of API, receives Post requests with json body.
-After starting the server, you can send a Post request to the following url. I have used Postman to send the Post request as you see in the follwing picture.
+This version of API receives POST requests with json body.
+After starting the server, you can send a POST request to the following url using Postman, as shown in the following image.
 ``` http://localhost:4567/api/v1/orders ```
 <img src="./images/v1Request.png" />
 
-The respond of the API, will be in json format as you see in the below picture. The important point is the unit of all numbers in the response is "penny" and they have been rounded by the accuracy of 1. (one penny)
+The response of the API will be in json format as you see in the image below. An important property of this response is that the all the prices and VATs are rounded to the nearest penny, which is the chosen unit here.
 <img src="./images/v1Respond.png" />
-As you see in the above picture, in the response, we have total price which is the sum of price of all products in the order. The total VAT is the sum of all VATs of all products. finally, you see All which shows the price and VAT of each product. All the prices and VATs are in pennies and they have the accuracy of one penny.
+The above response gives the total price and total VAT of the chosen products for that order together with the break down of the price and VAT of each individual product.
 
 ### v2 API
 
-This version of API is an extended version of v1 API. in this version, you will add "currency" to your request and the prices and the VAT in the respond will be in the currency that you have entered in the request with the accuracy of 0.01.
+This version of API is an extended version of v1. In this version you will choose the "currency" in your request, therefore, the prices and VATs in the response will be given in the chosen currency with the accuracy of 0.01.
 
- The proper Post request format is shown in the following picture. As you see, you should add the "currency" to the body of your post request and the value for it will be the code of the currency you want to use. In order to get a list of the code of different currencies, you can have a look at the [https://free.currencyconverterapi.com](https://free.currencyconverterapi.com). For example, the code of dollar is "USD".
+ The correct POST request format is shown in the following image. As you can see, the "currency" is added to the body of your request, where you need to enter the currency code of your choice, e.g. "USD" means $. In order to get the a list of currency codes, you can have a look at [https://free.currencyconverterapi.com](https://www.currencyconverterapi.com/docs).
 
-In order to use v2 version of API, after starting the server, you can send a Post request to the following url.
+In order to use v2 version of API, after starting the server, you can send a POST request to the following url.
 ``` http://localhost:4567/api/v2/orders ```
 
-I have used Postman to send the post request and you see the proper format of the request body in the following picture.
+I used Postman to send the POST request, for which you can see the correct body format in the following image.
 
 <img src="./images/v2Request.png" />
 
-The response will be in json format and all numbers' unit will be the currency you entered in the request with the accuracy of 0.01.
+The response will be in json format where all the prices and VATs have an accuracy of 0.01 with the unit of the currency you entered in the request.
 
 <img src="./images/v2Response.png" />
 
 ## Tests
 
-I have used Rspec framework to test the pricing logic for the problem. The test file is inside the "spec" folder. to run the tests, you can run the following command in the command line:
+I have used Rspec framework to test the pricing logic for the problem. The test files are inside the "spec" folder. to run the tests, you can run the following command in the terminal:
 
 ``` rspec ```
 
 ## If I had more time
 
-If I had more time, I would try to add some tests for the API itself. At the moment, I have written some unit tests for testing the calculation of price and VAT in my order model.
-To test the API, I run the server, then I send some post requests with proper body to the server by Postman. Then, I check that if the response is in the correct format and it shows the total_price, total_VAT and separated price and VAT for each product correctly or not. This can be automated and if I had more time, I would try to search a bit more to find proper way of testing the API call.
+At the moment, I have written the unit tests for all of my models, covering pricing logic. If I had more time, I would try to add some tests for the API itself.
 
-If I had more time, I would also work on the error handling. In fact, I would work on the server to show proper errors when it receives requests which don't have a proper body.
+To test the API, first I ran the server from which I sent some POST requests with the correct body to the server using Postman. Then I checked the response from that API call to make sure it has the correct format, and shows the total_price, total_VAT and the break down of the price and VAT for each product. This testing process can be automated; if I had more time, I would try to search a some more to find the correct way of testing the API automatically.
+
+If I had more time, I would also work on the error handling; so if a request with incorrect format or invalid body is sent, correct error responses are shown.
 
 ## What I am proud of
-I haven't  built any API before this test. I have used several APIs but it was my first time that I build one myself that receives a Post request with json body and responses in json format. This shows that I can learn new concepts and  apply them. At first, I tried to search about building APIs in Sinatra, then I built it step by step and now, it is working.
+I have worked with APIs before but I haven't built one from scratch until completing this task. I am proud of writing this API for the first time on my own, which is capable of receiving a POST request in json and sending a json response back. This proves that I am capable of learning and applying new concepts on my own.
 
-## The Thoughest bits
 
-In my v2 API, I used two classes. One of them was responsible for checking the order and calculating the price, VAT and separating the order for different items. The other class is responsible for making a connection to another currency conversion API to receive the exchange_rate, therefore in I had to get data from request body two times. When I tried to get data from request body two times in my server file, the server did not work.  After being stuck about two hours and searching a lot, I understood I could use the following piece of code to be able to have access to request body two times.
+## The Toughest bits
+
+To design the pricing logic I made four classes (models), which were accessed in both my API versions. In order to make an object for each class, I had to have access to the request body, as a result of which I had to use request body four times. In my initial design I was not able to do this but after some research online I found that by using the following code I can fix this issue.
 
  ```before do``` </br>
     &nbsp; &nbsp; ```request.body.rewind``` </br>
     &nbsp; &nbsp;   ```@request_payload = JSON.parse request.body.read``` </br>
     ``` end ```
 
-Then, I used "@request_payload" variable in my server file to have access to the request body for more than one time.
+Once "@request_payload" was defined, I used it in my server file to gain access to the request body more than one time.
 
 
 
 ## Why only one endpoint ???
 
-As you see in my server.rb file, I have only used one endpoint for both v1 and v2 APIs. The reason is that there are only 5 products. In adittion, I am not designing an API for a server which is used by a big company that has many clients and the server is called many times. I am just designing it for a test.
- If the server is called many times by clients, it would be a better idea to separate endpoints, because a lot of customers only need certain amount of information, so it is not good to get extra information by the endpoint. In addition, it increases the cost of data storage and management in big scales.
+As you see in my server.rb file, I have only used one endpoint for both v1 and v2 APIs. The reason for this choice is that here I was writing the API for a small number of products which would be only used for this test. If I were to design an API for a large company with many products and customers, who would use the API many times, the design would be different. In this case I would design more endpoints so the users only get the specific information they need such as total price. This would mean that the responses are not crowded by unnecessary information, which in turn leads to reduction in data storage and management costs.
+
 
  ## How to make the test more clear and better
- There is nothing that specifies what is the required accuracy for showing the prices and VATs in foreign currencies like USD. Is the accuracy 1 (dollar) or 0.01 (cent) in the response price and VAT ? It would be better to specify the required accuracy in the test.
- At the moment, there are three requirements for the endpoint. It should shows the following things in it : </br>
- the total price for the order</br>
-the total VAT for the order</br>
-the price and VAT for each item in the order </br>
-It would be good to add another requirement to show the currency that prices and VATs should be paid at. By adding that requirement, the response would be like the following picture, including the currency.
+ There is nothing that specifies what is the required accuracy for showing the prices and VATs in foreign currencies like USD. Is the accuracy 1 (dollar) or 0.01 (cent) in the response price and VAT ? It would be better to specify the required accuracy in the test description.
+ At the moment, there are only three requirements for the endpoint, i.e.
+ - total price for the order</br>
+ -  total VAT for the order</br>
+ - price and VAT for each item in the order </br>
+
+ , whereas, I believe currency should also be added to these requirements so when the user makes a use of this API, they know what currency the total cost is in. An example response with the currency requirement is shown in the image below.
 <img src="./images/v2ComResponse.png" />
